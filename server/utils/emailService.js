@@ -11,11 +11,12 @@ const sendEmail = async (to, subject, text, html) => {
                 pass: process.env.MAIL_PASS,
             },
             tls: {
-                rejectUnauthorized: false // Helps prevent some TLS errors in cloud
+                rejectUnauthorized: false
             },
-            connectionTimeout: 10000, // 10 seconds
-            greetingTimeout: 5000,    // 5 seconds
-            socketTimeout: 10000,     // 10 seconds
+            connectionTimeout: 30000, // 30 seconds
+            greetingTimeout: 30000,   // 30 seconds
+            socketTimeout: 30000,     // 30 seconds
+            family: 4,                // Force IPv4 (Fixes some cloud routing issues)
         });
 
         const mailOptions = {
