@@ -32,15 +32,6 @@ app.use('/api/email', emailRoutes);
 
 const path = require('path');
 
-// ... (keep existing middleware)
-
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/ai', aiRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/email', emailRoutes);
-
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
