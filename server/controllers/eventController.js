@@ -58,6 +58,38 @@ exports.getMyEvents = async (req, res) => {
     }
 };
 
+// Join Event
+exports.joinEvent = async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: 'Event not found' });
+
+        if (event.attendees.includes(req.user.userId)) {
+            return res.status(400).json({ message: 'Already joined' });
+        }
+
+        event.attendees.push(req.user.userId);
+        await event.save();
+        res.json(event);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Leave Event
+exports.leaveEvent = async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: 'Event not found' });
+
+        event.attendees = event.attendees.filter(id => id.toString() !== req.user.userId);
+        await event.save();
+        res.json(event);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Delete Event
 exports.deleteEvent = async (req, res) => {
     try {

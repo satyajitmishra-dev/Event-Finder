@@ -7,7 +7,7 @@ import { Calendar, MapPin, Clock, Trash2, ExternalLink } from 'lucide-react';
 const EventDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { currentEvent, fetchEventById, deleteEvent, isLoading } = useEventStore();
+    const { currentEvent, fetchEventById, deleteEvent, joinEvent, leaveEvent, isLoading } = useEventStore();
     const { user } = useAuthStore();
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const EventDetails = () => {
                         <p className="text-gray-300 whitespace-pre-wrap">{currentEvent.description}</p>
                     </div>
 
-                    {currentEvent.registrationLink && (
+                    {currentEvent.registrationLink ? (
                         <a
                             href={currentEvent.registrationLink}
                             target="_blank"
@@ -78,6 +78,27 @@ const EventDetails = () => {
                         >
                             Register Now <ExternalLink size={20} />
                         </a>
+                    ) : (
+                        <div className="flex items-center gap-4">
+                            <button
+                                onClick={() => {
+                                    if (currentEvent.attendees.includes(user?._id)) {
+                                        leaveEvent(currentEvent._id);
+                                    } else {
+                                        joinEvent(currentEvent._id);
+                                    }
+                                }}
+                                className={`px-6 py-3 rounded font-bold transition ${currentEvent.attendees.includes(user?._id)
+                                    ? 'bg-red-600 hover:bg-red-700'
+                                    : 'bg-green-600 hover:bg-green-700'
+                                    }`}
+                            >
+                                {currentEvent.attendees.includes(user?._id) ? 'Leave Event' : 'Join Event'}
+                            </button>
+                            <span className="text-gray-400">
+                                {currentEvent.attendees.length} {currentEvent.attendees.length === 1 ? 'Attendee' : 'Attendees'}
+                            </span>
+                        </div>
                     )}
                 </div>
             </div>

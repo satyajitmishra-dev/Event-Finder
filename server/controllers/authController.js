@@ -70,7 +70,22 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        if (!user.isVerified) return res.status(400).json({ message: 'Email not verified' });
+        if (user.isVerified) {
+            // Remove old login OTPs
+            await OtpVerification.deleteMany({ userId: user._id, type: 'login' });
+
+            const { accessToken, refreshToken } = generateTokens(user._id);
+
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            });
+
+            const userResponse = await User.findById(user._id).select('-passwordHash');
+            return res.status(200).json({ accessToken, user: userResponse });
+        }
 
         const otp = generateOTP();
         const hashedOtp = await bcrypt.hash(otp, 10);
@@ -127,11 +142,19 @@ exports.refresh = async (req, res) => {
     const token = req.cookies?.refreshToken; // Requires cookie-parser
     if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
-    jwt.verify(token, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_REFRESH_SECRET, async (err, decoded) => {
         if (err) return res.status(403).json({ message: 'Forbidden' });
 
-        const { accessToken } = generateTokens(decoded.userId);
-        res.json({ accessToken });
+        try {
+            const { accessToken } = generateTokens(decoded.userId);
+            const user = await User.findById(decoded.userId).select('-passwordHash');
+
+            if (!user) return res.status(404).json({ message: 'User not found' });
+
+            res.json({ accessToken, user });
+        } catch (error) {
+            res.status(500).json({ message: 'Server error during refresh' });
+        }
     });
 };
 

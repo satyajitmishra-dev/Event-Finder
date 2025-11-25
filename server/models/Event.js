@@ -12,6 +12,7 @@ const eventSchema = new mongoose.Schema({
     tags: [{ type: String }],
     registrationLink: { type: String },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     isPublic: { type: Boolean, default: true },
 }, { timestamps: true });
 

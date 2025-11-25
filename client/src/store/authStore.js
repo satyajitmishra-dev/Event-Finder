@@ -5,7 +5,20 @@ const useAuthStore = create((set) => ({
     user: null,
     isAuthenticated: false,
     isLoading: false,
+    isCheckingAuth: true,
     error: null,
+
+    checkAuth: async () => {
+        set({ isCheckingAuth: true });
+        try {
+            const res = await api.post('/auth/refresh');
+            set({ user: res.data.user, isAuthenticated: true });
+        } catch (error) {
+            set({ user: null, isAuthenticated: false });
+        } finally {
+            set({ isCheckingAuth: false });
+        }
+    },
 
     register: async (userData) => {
         set({ isLoading: true, error: null });
@@ -53,9 +66,20 @@ const useAuthStore = create((set) => ({
         }
     },
 
+    updateProfile: async (userData) => {
+        try {
+            const res = await api.put('/users/profile', userData);
+            set({ user: res.data.user });
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     logout: async () => {
         await api.post('/auth/logout');
         set({ user: null, isAuthenticated: false });
+        toast.success('Logged out successfully!');
     },
 }));
 

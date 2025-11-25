@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import api from '../api/axios';
+import { toast } from 'react-toastify';
 
 const useEventStore = create((set) => ({
     events: [],
@@ -74,9 +75,29 @@ const useEventStore = create((set) => ({
                 events: state.events.filter((e) => e._id !== id),
                 myEvents: state.myEvents.filter((e) => e._id !== id),
             }));
-        } catch (err) {
-            console.error(err);
-            throw err;
+            toast.success('Event deleted successfully');
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to delete event');
+        }
+    },
+
+    joinEvent: async (id) => {
+        try {
+            const res = await api.post(`/events/${id}/join`);
+            set({ currentEvent: res.data });
+            toast.success('Joined event successfully');
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to join event');
+        }
+    },
+
+    leaveEvent: async (id) => {
+        try {
+            const res = await api.post(`/events/${id}/leave`);
+            set({ currentEvent: res.data });
+            toast.success('Left event successfully');
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to leave event');
         }
     },
 }));

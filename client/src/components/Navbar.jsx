@@ -35,8 +35,8 @@ const Navbar = () => {
                                         key={link.path}
                                         to={link.path}
                                         className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${isActive(link.path)
-                                                ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20'
-                                                : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                                            ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20'
+                                            : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
                                             }`}
                                     >
                                         {link.icon}
@@ -44,6 +44,9 @@ const Navbar = () => {
                                     </Link>
                                 ))}
                                 <div className="h-6 w-px bg-gray-700 mx-2" />
+                                <Link to="/profile" className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${isActive('/profile') ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-gray-300 hover:text-white hover:bg-gray-800/50'}`}>
+                                    Profile
+                                </Link>
                                 <div className="flex items-center gap-3">
                                     <span className="text-sm text-gray-400">Hi, {user.name.split(' ')[0]}</span>
                                     <button
@@ -95,14 +98,24 @@ const Navbar = () => {
                                             to={link.path}
                                             onClick={() => setIsOpen(false)}
                                             className={`flex items-center gap-3 px-3 py-3 rounded-lg ${isActive(link.path)
-                                                    ? 'text-purple-400 bg-purple-500/10'
-                                                    : 'text-gray-300 hover:bg-gray-800/50'
+                                                ? 'text-purple-400 bg-purple-500/10'
+                                                : 'text-gray-300 hover:bg-gray-800/50'
                                                 }`}
                                         >
                                             {link.icon}
                                             {link.label}
                                         </Link>
                                     ))}
+                                    <Link
+                                        to="/profile"
+                                        onClick={() => setIsOpen(false)}
+                                        className={`flex items-center gap-3 px-3 py-3 rounded-lg ${isActive('/profile')
+                                            ? 'text-purple-400 bg-purple-500/10'
+                                            : 'text-gray-300 hover:bg-gray-800/50'
+                                            }`}
+                                    >
+                                        Profile
+                                    </Link>
                                     <button
                                         onClick={() => { logout(); setIsOpen(false); }}
                                         className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-red-400 hover:bg-red-500/10 text-left"

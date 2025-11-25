@@ -9,6 +9,15 @@ const userSchema = new mongoose.Schema({
     yearOfStudying: { type: String, required: true },
     location: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
+    bio: { type: String, default: '' },
+    interests: [{ type: String }],
+    avatar: { type: String, default: '' },
+    socialLinks: {
+        instagram: { type: String, default: '' },
+        linkedin: { type: String, default: '' },
+        twitter: { type: String, default: '' },
+        github: { type: String, default: '' }
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
