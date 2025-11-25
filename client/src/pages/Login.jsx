@@ -20,9 +20,16 @@ const Login = () => {
         setIsLoading(true);
         try {
             const res = await login(formData);
+
+            // Check if OTP is required (unverified user)
             if (res.status === 'OTP_SENT') {
                 toast.success('OTP sent to your email!');
                 navigate('/verify-otp', { state: { userId: res.userId, email: formData.email, type: 'login' } });
+            }
+            // Direct login for verified users
+            else if (res.accessToken && res.user) {
+                toast.success('Login successful!');
+                navigate('/');
             }
         } catch (error) {
             console.error('Login error:', error);

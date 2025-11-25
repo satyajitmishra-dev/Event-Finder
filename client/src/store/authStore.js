@@ -47,7 +47,14 @@ const useAuthStore = create((set) => ({
         set({ isLoading: true, error: null });
         try {
             const res = await api.post('/auth/login', credentials);
-            set({ isLoading: false });
+
+            // If direct login (verified user), set user state
+            if (res.data.accessToken && res.data.user) {
+                set({ user: res.data.user, isAuthenticated: true, isLoading: false });
+            } else {
+                set({ isLoading: false });
+            }
+
             return res.data;
         } catch (err) {
             set({ isLoading: false, error: err.response?.data?.message || 'Login failed' });
