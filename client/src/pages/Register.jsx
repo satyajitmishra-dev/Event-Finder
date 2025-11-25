@@ -119,15 +119,28 @@ const Register = () => {
                         onChange={handleChange}
                         required
                     />
-                    <Input
-                        icon={Calendar}
-                        type="number"
-                        name="yearOfStudying"
-                        placeholder="Year (e.g. 2025)"
-                        value={formData.yearOfStudying}
-                        onChange={handleChange}
-                        required
-                    />
+
+                    <div className="relative group">
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-400 transition-colors pointer-events-none z-10" size={20} />
+                        <select
+                            name="yearOfStudying"
+                            value={formData.yearOfStudying}
+                            onChange={handleChange}
+                            className="w-full bg-gray-900/50 border border-gray-700 focus:border-purple-500 rounded-lg py-3 pl-10 pr-10 text-white focus:ring-1 focus:ring-purple-500 outline-none transition-all appearance-none cursor-pointer"
+                            required
+                        >
+                            <option value="" disabled className="bg-gray-900">Select Year</option>
+                            <option value="1st Year" className="bg-gray-900">1st Year</option>
+                            <option value="2nd Year" className="bg-gray-900">2nd Year</option>
+                            <option value="3rd Year" className="bg-gray-900">3rd Year</option>
+                            <option value="4th Year" className="bg-gray-900">4th Year</option>
+                        </select>
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
 
                     <div className="md:col-span-2">
                         <Input

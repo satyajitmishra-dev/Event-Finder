@@ -32,7 +32,7 @@ exports.register = async (req, res) => {
             expiresAt: Date.now() + 5 * 60 * 1000, // 5 mins
         }).save();
 
-        await sendEmail(email, 'Verify your account', `Your OTP is ${otp}`);
+        await sendEmail(email, ' Verify your account with OTP', `Your OTP is ${otp}`);
 
         res.status(201).json({ message: 'OTP sent to email', userId: newUser._id });
     } catch (error) {
@@ -54,7 +54,7 @@ exports.verifyRegisterOtp = async (req, res) => {
         await User.findByIdAndUpdate(userId, { isVerified: true });
         await OtpVerification.deleteOne({ _id: record._id });
 
-        res.status(200).json({ message: 'Email verified successfully' });
+        res.status(200).json({ message: 'Hooray!! Email verified successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -85,7 +85,7 @@ exports.login = async (req, res) => {
             expiresAt: Date.now() + 5 * 60 * 1000,
         }).save();
 
-        await sendEmail(email, 'Login OTP', `Your Login OTP is ${otp}`);
+        await sendEmail(email, 'Hey There! Login OTP', `Here is Your Login OTP: ${otp}`);
 
         res.status(200).json({ message: 'OTP sent', userId: user._id, status: 'OTP_SENT' });
     } catch (error) {

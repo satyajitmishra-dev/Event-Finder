@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     passwordHash: { type: String, required: true },
     college: { type: String, required: true },
     stream: { type: String, required: true },
-    yearOfStudying: { type: Number, required: true },
+    yearOfStudying: { type: String, required: true },
     location: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
 }, { timestamps: true });
