@@ -5,7 +5,7 @@ const Event = require('../models/Event');
 // Initialize Gemini
 // Fallback to OPENAI_KEY if GEMINI_API_KEY is not set, as user might have stored it there
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.OPENAI_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 exports.chat = async (req, res) => {
     try {

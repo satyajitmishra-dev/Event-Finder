@@ -13,6 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const userRoutes = require('./routes/userRoutes');
+const emailRoutes = require('./routes/emailRoutes');
 
 // Middleware
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/email', emailRoutes);
 
 app.get('/', (req, res) => {
   res.send('EventFinder API is running...');

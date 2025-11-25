@@ -4,6 +4,7 @@ const sendEmail = require('../utils/emailService');
 const generateTokens = require('../utils/generateToken');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { generateOtpEmail } = require('../utils/emailTemplates');
 
 // Helper to generate 6-digit OTP
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
@@ -32,7 +33,8 @@ exports.register = async (req, res) => {
             expiresAt: Date.now() + 5 * 60 * 1000, // 5 mins
         }).save();
 
-        await sendEmail(email, ' Verify your account with OTP', `Your OTP is ${otp}`);
+        const emailHtml = generateOtpEmail(otp, name);
+        await sendEmail(email, 'Verify your account - EventFinder', `Your OTP is ${otp}`, emailHtml);
 
         res.status(201).json({ message: 'OTP sent to email', userId: newUser._id });
     } catch (error) {
@@ -100,7 +102,8 @@ exports.login = async (req, res) => {
             expiresAt: Date.now() + 5 * 60 * 1000,
         }).save();
 
-        await sendEmail(email, 'Hey There! Login OTP', `Here is Your Login OTP: ${otp}`);
+        const emailHtml = generateOtpEmail(otp, user.name);
+        await sendEmail(email, 'Login Verification - EventFinder', `Here is Your Login OTP: ${otp}`, emailHtml);
 
         res.status(200).json({ message: 'OTP sent', userId: user._id, status: 'OTP_SENT' });
     } catch (error) {

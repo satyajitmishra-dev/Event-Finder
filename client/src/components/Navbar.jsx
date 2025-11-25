@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
-import { Calendar, MessageSquare, LogOut, Menu, X } from 'lucide-react';
+import { Calendar, MessageSquare, LogOut, Menu, X, Github, Star, User } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -26,56 +26,72 @@ const Navbar = () => {
                         EventFinder
                     </Link>
 
-                    {/* Desktop Nav */}
-                    <div className="hidden md:flex items-center gap-6">
-                        {user ? (
-                            <>
-                                {navLinks.map((link) => (
-                                    <Link
-                                        key={link.path}
-                                        to={link.path}
-                                        className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${isActive(link.path)
-                                            ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20'
-                                            : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
-                                            }`}
-                                    >
-                                        {link.icon}
-                                        {link.label}
-                                    </Link>
-                                ))}
-                                <div className="h-6 w-px bg-gray-700 mx-2" />
-                                <Link to="/profile" className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${isActive('/profile') ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-gray-300 hover:text-white hover:bg-gray-800/50'}`}>
-                                    Profile
-                                </Link>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-sm text-gray-400">Hi, {user.name.split(' ')[0]}</span>
-                                    <button
-                                        onClick={logout}
-                                        className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
-                                        title="Logout"
-                                    >
-                                        <LogOut size={20} />
-                                    </button>
-                                </div>
-                            </>
-                        ) : (
-                            <div className="flex items-center gap-4">
-                                <Link to="/login" className="text-gray-300 hover:text-white transition-colors">Login</Link>
-                                <Link to="/register" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-4 py-2 rounded-lg font-medium transition-all">
-                                    Get Started
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="text-gray-300 hover:text-white p-2 hover:bg-gray-800/50 rounded-lg transition-all"
+                    <div className="flex items-center gap-4">
+                        {/* GitHub Link */}
+                        <a
+                            href="https://github.com/satyajitmishra-dev/Event-Finder"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 p-2 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all group"
+                            title="Star on GitHub"
                         >
-                            {isOpen ? <X size={24} /> : <Menu size={24} />}
-                        </button>
+                            <Github size={22} />
+                            <div className="flex items-center gap-1 text-yellow-500 group-hover:text-yellow-400 transition-colors">
+                                <Star size={18} className="fill-current" />
+                            </div>
+                        </a>
+
+                        {/* Desktop Nav */}
+                        <div className="hidden md:flex items-center gap-6">
+                            {user ? (
+                                <>
+                                    {navLinks.map((link) => (
+                                        <Link
+                                            key={link.path}
+                                            to={link.path}
+                                            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${isActive(link.path)
+                                                ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20'
+                                                : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                                                }`}
+                                        >
+                                            {link.icon}
+                                            {link.label}
+                                        </Link>
+                                    ))}
+                                    <div className="h-6 w-px bg-gray-700 mx-2" />
+                                    <Link to="/profile" className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${isActive('/profile') ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-gray-300 hover:text-white hover:bg-gray-800/50'}`}>
+                                        <User size={22} />
+                                    </Link>
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-sm text-gray-400">Hi, {user.name.split(' ')[0]}</span>
+                                        <button
+                                            onClick={logout}
+                                            className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
+                                            title="Logout"
+                                        >
+                                            <LogOut size={20} />
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="flex items-center gap-4">
+                                    <Link to="/login" className="text-gray-300 hover:text-white transition-colors">Login</Link>
+                                    <Link to="/register" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-4 py-2 rounded-lg font-medium transition-all">
+                                        Get Started
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Mobile Menu Button */}
+                        <div className="md:hidden">
+                            <button
+                                onClick={() => setIsOpen(!isOpen)}
+                                className="text-gray-300 hover:text-white p-2 hover:bg-gray-800/50 rounded-lg transition-all"
+                            >
+                                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
