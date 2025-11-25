@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+**/node_modules/
 /.pnp
 .pnp.js
 
@@ -12,11 +13,18 @@ node_modules/
 
 # Misc
 .DS_Store
+
+# Environment files (all directories)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
 
 # Logs
 npm-debug.log*
