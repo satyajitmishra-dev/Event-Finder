@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, MessageSquare, Send, Github, Twitter, Linkedin, AlertCircle } from 'lucide-react';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import api from '../api/axios';
 
 
 const Footer = () => {
@@ -21,7 +21,7 @@ const Footer = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.post('http://localhost:5000/api/email/contact', formData);
+            await api.post('/email/contact', formData);
             toast.success('Message sent successfully!');
             setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
         } catch (error) {
