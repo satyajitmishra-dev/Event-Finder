@@ -1,10 +1,11 @@
-const OpenAI = require('openai');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const User = require('../models/User');
 const Event = require('../models/Event');
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_KEY,
-});
+// Initialize Gemini
+// Fallback to OPENAI_KEY if GEMINI_API_KEY is not set, as user might have stored it there
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.OPENAI_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 exports.chat = async (req, res) => {
     try {
@@ -18,19 +19,17 @@ exports.chat = async (req, res) => {
         const systemPrompt = `You are EventFinder AI, a helpful assistant for discovering events. 
     The user is ${user.name} located in ${user.location}.
     Help them find events, answer questions about local activities, or suggest things to do.
-    Be concise and friendly.`;
+    Be concise and friendly.
+    
+    User message: ${message}`;
 
-        const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: message }
-            ],
-        });
+        const result = await model.generateContent(systemPrompt);
+        const response = await result.response;
+        const text = response.text();
 
-        res.json({ reply: completion.choices[0].message.content });
+        res.json({ reply: text });
     } catch (error) {
-        console.error('OpenAI Error:', error);
+        console.error('Gemini Error:', error);
         res.status(500).json({ message: 'Failed to get AI response' });
     }
 };
@@ -49,28 +48,29 @@ exports.getRecommendations = async (req, res) => {
     
     Here are some actual events happening nearby: ${eventTitles}.
     
-    Format the response as a JSON array of objects with keys: title, description, reason.`;
+    Format the response as a valid JSON array of objects with keys: title, description, reason.
+    Do not include any markdown formatting or code blocks. Just the raw JSON.`;
 
-        const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: [
-                { role: "system", content: "You are an event recommendation engine. Output valid JSON only." },
-                { role: "user", content: prompt }
-            ],
-        });
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        let text = response.text();
+
+        // Clean up markdown if present
+        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
         // Parse JSON from response
         let recommendations = [];
         try {
-            recommendations = JSON.parse(completion.choices[0].message.content);
+            recommendations = JSON.parse(text);
         } catch (e) {
+            console.error("JSON Parse Error:", e);
             // Fallback if AI returns text
             recommendations = [{ title: "Check Dashboard", description: "Explore the dashboard for more events.", reason: "AI parsing failed." }];
         }
 
         res.json(recommendations);
     } catch (error) {
-        console.error('OpenAI Error:', error);
+        console.error('Gemini Error:', error);
         res.status(500).json({ message: 'Failed to get recommendations' });
     }
 };
