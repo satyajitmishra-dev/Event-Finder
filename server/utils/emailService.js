@@ -34,6 +34,7 @@ const sendEmail = async (to, subject, text, html) => {
         if (process.env.NODE_ENV !== 'production') {
             console.log(`[DEV] Failed to send email. Content: ${text}`);
         }
+        throw error; // Re-throw so the controller knows it failed
     }
 };
 
