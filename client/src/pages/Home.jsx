@@ -6,6 +6,8 @@ import SpotlightCard from '../components/ui/SpotlightCard';
 import Footer from '../components/Footer';
 import useAuthStore from '../store/authStore';
 
+import RotatingText from '../components/ui/RotatingText';
+
 const Home = () => {
     const { user } = useAuthStore();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -57,7 +59,10 @@ const Home = () => {
 
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
                         Find Events That{' '}
-                        <span className="text-gradient">Inspire You</span>
+                        <RotatingText
+                            words={["Inspire You", "Connect You", "Thrill You", "Move You"]}
+                            className="text-gradient"
+                        />
                     </h1>
 
                     <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">

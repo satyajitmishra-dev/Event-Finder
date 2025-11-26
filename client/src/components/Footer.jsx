@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MessageSquare, Send, Github, Twitter, Linkedin, AlertCircle } from 'lucide-react';
+import { Mail, MessageSquare, Send, Github, Twitter, Linkedin, AlertCircle, Facebook } from 'lucide-react';
 import { toast } from 'react-toastify';
 import api from '../api/axios';
 
@@ -51,13 +51,13 @@ const Footer = () => {
                         </p>
 
                         <div className="flex gap-4 mb-8">
-                            <a href="#" className="p-3 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-400 transition-all">
+                            <a href="https://github.com/satyajitmishra-dev/Event-Finder" target='_blank' className="p-3 bg-gray-800/50 rounded-lg hover:bg-purple-500/20 hover:text-purple-400 transition-all">
                                 <Github size={20} />
                             </a>
-                            <a href="#" className="p-3 bg-gray-800/50 rounded-lg hover:bg-blue-400/20 hover:text-blue-400 transition-all">
-                                <Twitter size={20} />
+                            <a href="https://facebook.com/satyajitmishra.dev" target='_blank' className="p-3 bg-gray-800/50 rounded-lg hover:bg-blue-400/20 hover:text-blue-400 transition-all">
+                                <Facebook size={20} />
                             </a>
-                            <a href="#" className="p-3 bg-gray-800/50 rounded-lg hover:bg-blue-600/20 hover:text-blue-600 transition-all">
+                            <a href="https://linkedin.com/in/satyajitmishra1" target='_blank' className="p-3 bg-gray-800/50 rounded-lg hover:bg-blue-600/20 hover:text-blue-600 transition-all">
                                 <Linkedin size={20} />
                             </a>
                         </div>
@@ -158,9 +158,9 @@ const Footer = () => {
                         © {new Date().getFullYear()} EventFinder. All rights reserved.
                     </p>
                     <div className="flex gap-6 text-sm text-gray-500">
-                        <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-                        <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+                        <a href="https://github.com/satyajitmishra-dev/Event-Finder/blob/main/Readme.md" target="_blank" className="hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="https://github.com/satyajitmishra-dev/Event-Finder/blob/main/Readme.md" target='_blank' className="hover:text-white transition-colors">Terms of Service</a>
+                        <a href="https://github.com/satyajitmishra-dev/Event-Finder/blob/main/Readme.md" target='_blank' className="hover:text-white transition-colors">Cookie Policy</a>
                     </div>
                 </div>
             </div>

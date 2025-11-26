@@ -3,7 +3,7 @@ const cloudinary = require('../config/cloudinary');
 
 const getProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-passwordHash');
+        const user = await User.findById(req.user.userId).select('-passwordHash');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -29,7 +29,7 @@ const updateProfile = async (req, res) => {
             avatarUrl = result.secure_url;
         }
 
-        const user = await User.findById(req.user.id);
+        const user = await User.findById(req.user.userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -41,7 +41,11 @@ const updateProfile = async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({ message: 'Profile updated successfully', user });
+        const message = req.file
+            ? 'Profile photo and details updated successfully ✨'
+            : 'Profile details updated successfully ✨';
+
+        res.status(200).json({ message, user });
     } catch (error) {
         console.error('Profile Update Error:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
