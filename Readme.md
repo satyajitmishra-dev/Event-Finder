@@ -7,7 +7,6 @@
   <img src="https://img.shields.io/badge/PRs-Welcome-blue?style=for-the-badge" />
   <img src="https://img.shields.io/github/stars/satyajitmishra-dev/Event-Finder?style=for-the-badge&color=yellow" />
   <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Build-React%20%7C%20Next.js-61DAFB?style=for-the-badge" />
 </p>
 
 EventFinder is a sleek, AI-assisted platform designed to help you browse events, explore experiences, and get personalized recommendations—instantly.
