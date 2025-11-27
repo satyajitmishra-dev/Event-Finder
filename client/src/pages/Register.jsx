@@ -75,7 +75,9 @@ const Register = () => {
 
         try {
             const res = await register(formData);
-            toast.success('Registration successful! Check your email for OTP');
+            toast.success("Registration successful! 🚀 We've sent an OTP to your email. Please check your inbox (and spam folder just in case!).", {
+                autoClose: 8000, // Give them enough time to read it
+            });
 
             navigate('/verify-otp', {
                 state: {
@@ -168,16 +170,50 @@ const Register = () => {
                     </div>
 
                     {/* Stream */}
-                    <div>
-                        <Input
-                            icon={BookOpen}
-                            type="text"
+                    {/* Stream */}
+                    <div className="relative group">
+                        <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-400 transition-colors pointer-events-none z-10" size={20} />
+
+                        <select
                             name="stream"
-                            placeholder="Stream (e.g. CS)"
                             value={formData.stream}
                             onChange={handleChange}
-                        />
-                        {errors.stream && <p className="text-red-500 text-sm">{errors.stream}</p>}
+                            className="w-full bg-gray-900/50 border border-gray-700 focus:border-purple-500 rounded-lg py-3 pl-10 pr-10 text-white focus:ring-1 focus:ring-purple-500 outline-none transition-all appearance-none cursor-pointer"
+                        >
+                            <option value="" disabled>Select Stream</option>
+                            <option value="Computer Science & Engineering (CSE)">Computer Science & Engineering (CSE)</option>
+                            <option value="Information Technology (IT)">Information Technology (IT)</option>
+                            <option value="Electronics & Communication (ECE)">Electronics & Communication (ECE)</option>
+                            <option value="Electrical Engineering (EE)">Electrical Engineering (EE)</option>
+                            <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                            <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+                            <option value="Artificial Intelligence & DS (AI & DS)">Artificial Intelligence & DS (AI & DS)</option>
+                            <option value="Biotechnology (BT)">Biotechnology (BT)</option>
+                            <option value="Chemical Engineering (ChE)">Chemical Engineering (ChE)</option>
+                            <option value="Aerospace Engineering (AE)">Aerospace Engineering (AE)</option>
+                            <option value="Agricultural Engineering">Agricultural Engineering</option>
+                            <option value="Automobile Engineering">Automobile Engineering</option>
+                            <option value="Biomedical Engineering">Biomedical Engineering</option>
+                            <option value="Ceramic Engineering">Ceramic Engineering</option>
+                            <option value="Environmental Engineering">Environmental Engineering</option>
+                            <option value="Industrial Engineering">Industrial Engineering</option>
+                            <option value="Instrumentation Engineering">Instrumentation Engineering</option>
+                            <option value="Marine Engineering">Marine Engineering</option>
+                            <option value="Metallurgical Engineering">Metallurgical Engineering</option>
+                            <option value="Mining Engineering">Mining Engineering</option>
+                            <option value="Petroleum Engineering">Petroleum Engineering</option>
+                            <option value="Production Engineering">Production Engineering</option>
+                            <option value="Textile Engineering">Textile Engineering</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        {errors.stream && <p className="text-red-500 text-sm mt-1">{errors.stream}</p>}
+
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
                     </div>
 
                     {/* Year of Studying */}

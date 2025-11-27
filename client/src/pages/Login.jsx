@@ -23,7 +23,9 @@ const Login = () => {
 
             // Check if OTP is required (unverified user)
             if (res.status === 'OTP_SENT') {
-                toast.success('OTP sent to your email!');
+                toast.success("OTP sent! 📧 Check your inbox (and spam folder) to verify your account.", {
+                    autoClose: 6000,
+                });
                 navigate('/verify-otp', { state: { userId: res.userId, email: formData.email, type: 'login' } });
             }
             // Direct login for verified users

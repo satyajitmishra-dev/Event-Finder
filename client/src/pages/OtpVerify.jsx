@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
+import { Info } from 'lucide-react';
 
 const OtpVerify = () => {
     const { state } = useLocation();
@@ -41,7 +42,14 @@ const OtpVerify = () => {
                 className="glass-card p-8 rounded-2xl w-full max-w-sm text-center"
             >
                 <h2 className="text-3xl font-bold mb-2 text-gradient">Verify OTP</h2>
-                <p className="mb-6 text-gray-400">Enter the code sent to {state?.email}</p>
+                <p className="mb-6 text-gray-400">Enter the code sent to <span className="text-white font-semibold">{state?.email}</span></p>
+
+                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3 mb-6 flex items-start gap-3 text-left">
+                    <Info className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-yellow-200/80">
+                        Don't see the email? <span className="text-yellow-200 font-medium">Check your spam folder</span> 📩
+                    </p>
+                </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input
                         type="text"
