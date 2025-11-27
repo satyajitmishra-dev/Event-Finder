@@ -39,12 +39,12 @@ EventFinder is a sleek, AI-assisted platform designed to help you browse events,
 
 ## 🛠️ **Tech Stack**
 
-**Frontend:** React / Next.js
-**Styling:** Tailwind CSS
+**Frontend:** React
+**Styling:** Tailwind CSS, lucide react
 **Backend:** Node.js / Express / Serverless Functions
-**AI:** OpenAI API / LLM Integration
-**Database (Optional):** PostgreSQL / MongoDB
-**Deployment:** Vercel / Docker / Render / Railway
+**AI:** GEMINI API
+**Database (Optional):** MongoDB
+**Deployment:** Render
 
 ---
 
@@ -90,7 +90,7 @@ PORT=3000
 ```
 
 ✔️ `EVENT_API_KEY` — Eventbrite / Meetup / custom APIs
-✔️ `OPENAI_API_KEY` — AI assistant integration
+✔️ `GEMINI_API_KEY` — AI assistant integration
 ✔️ `DATABASE_URL` — required only if using a DB
 
 ---
