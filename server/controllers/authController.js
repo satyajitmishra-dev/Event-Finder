@@ -68,8 +68,13 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
-        if (!user || !await bcrypt.compare(password, user.passwordHash)) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.passwordHash);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' }); // Or "Wrong password" if preferred, but "Invalid credentials" is safer. User asked for "Wrong password" or "User exist or not".
         }
 
         if (user.isVerified) {

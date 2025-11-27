@@ -19,6 +19,8 @@ import LoadingSpinner from './components/ui/LoadingSpinner';
 import { useEffect } from 'react';
 
 import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
+import GuestSessionLimit from './components/GuestSessionLimit';
 
 import Home from './pages/Home';
 
@@ -42,6 +44,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <Navbar />
+      <GuestSessionLimit />
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -65,11 +68,31 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-otp" element={<OtpVerify />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/create-event" element={<CreateEvent />} />
-          <Route path="/events/:id" element={<EventDetails />} />
-          <Route path="/chat" element={<ChatAssistant />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/create-event" element={
+            <ProtectedRoute>
+              <CreateEvent />
+            </ProtectedRoute>
+          } />
+          <Route path="/events/:id" element={
+            <ProtectedRoute>
+              <EventDetails />
+            </ProtectedRoute>
+          } />
+          <Route path="/chat" element={
+            <ProtectedRoute>
+              <ChatAssistant />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import { Calendar, MessageSquare, LogOut, Menu, X, Github, Star, User } from 'lucide-react';
 import { useState } from 'react';
@@ -8,7 +8,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Navbar = () => {
     const { user, logout } = useAuthStore();
     const location = useLocation();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleLogout = async () => {
+        await logout();
+        navigate('/login');
+        setIsOpen(false);
+    };
 
     const isActive = (path) => location.pathname === path;
 
@@ -65,7 +72,7 @@ const Navbar = () => {
                                     <div className="flex items-center gap-3">
                                         <span className="text-sm text-gray-400">Hi, {user.name.split(' ')[0]}</span>
                                         <button
-                                            onClick={logout}
+                                            onClick={handleLogout}
                                             className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
                                             title="Logout"
                                         >
@@ -133,7 +140,7 @@ const Navbar = () => {
                                         Profile
                                     </Link>
                                     <button
-                                        onClick={() => { logout(); setIsOpen(false); }}
+                                        onClick={handleLogout}
                                         className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-red-400 hover:bg-red-500/10 text-left"
                                     >
                                         <LogOut size={18} />
