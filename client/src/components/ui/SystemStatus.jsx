@@ -47,14 +47,49 @@ const SystemStatus = () => {
         setLocation('Locating...');
 
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position;
-                setLocation(`${latitude.toFixed(2)}, ${longitude.toFixed(2)}`);
-                setLocating(false);
+            async (position) => {
+                // FIX: Access coords property
+                const { latitude, longitude } = position.coords;
+
+                try {
+                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+
+                    if (!response.ok) {
+                        throw new Error('Location service unavailable');
+                    }
+
+                    const data = await response.json();
+
+                    // Extract city, town, village, suburb, or county
+                    if (data.address) {
+                        const city = data.address.city ||
+                            data.address.town ||
+                            data.address.village ||
+                            data.address.suburb ||
+                            data.address.county ||
+                            'Unknown Location';
+                        setLocation(city);
+                    } else {
+                        setLocation('Location Not Found');
+                    }
+                } catch (error) {
+                    console.error("Error fetching address:", error);
+                    setLocation('Location Error');
+                } finally {
+                    setLocating(false);
+                }
             },
             (error) => {
                 console.error("Error getting location:", error);
-                setLocation('Permission Denied');
+                if (error.code === error.PERMISSION_DENIED) {
+                    setLocation('Permission Denied');
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    setLocation('Position Unavailable');
+                } else if (error.code === error.TIMEOUT) {
+                    setLocation('Timeout');
+                } else {
+                    setLocation('Location Error');
+                }
                 setLocating(false);
             }
         );

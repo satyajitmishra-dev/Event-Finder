@@ -45,7 +45,7 @@ const Home = () => {
             </div>
 
             {/* Hero Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -115,7 +115,7 @@ const Home = () => {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-32"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16"
                 >
                     {features.map((feature, index) => (
                         <SpotlightCard key={feature.title} feature={feature} index={index} />
@@ -124,7 +124,7 @@ const Home = () => {
             </div>
 
             {/* CTA Section - Bridge to Footer */}
-            <section className="relative py-32 overflow-hidden">
+            <section className="relative py-20 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-black/80 pointer-events-none" />
                 <div className="max-w-5xl mx-auto px-4 relative z-10 text-center">
                     <motion.div
@@ -152,7 +152,7 @@ const Home = () => {
                                 onClick={() => window.location.href = '/chat'}
                                 className="px-8 py-4 bg-white text-black font-bold rounded-full text-lg hover:bg-gray-200 transition-all transform hover:scale-105 shadow-xl shadow-white/10"
                             >
-                                Chat With AI
+                                Chat With AI ✨
                             </button>
                         )}
                     </motion.div>

@@ -101,10 +101,10 @@ const Profile = () => {
             await toast.promise(
                 updateProfile(data),
                 {
-                    pending: 'Updating your profile...',
+                    pending: '⌛Updating your profile...',
                     success: {
                         render({ data }) {
-                            return data.message || 'Profile updated successfully ✨';
+                            return data.message || 'Profile updated successfully 🎉';
                         }
                     },
                     error: 'Failed to update profile 😔'
@@ -278,7 +278,7 @@ const Profile = () => {
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => setIsEditing(true)}
-                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium whitespace-nowrap"
+                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-800 hover:bg-purple-600 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium whitespace-nowrap"
                                         >
                                             <Edit2 size={16} /> Edit Profile
                                         </motion.button>
@@ -286,7 +286,7 @@ const Profile = () => {
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => setShowPasswordModal(true)}
-                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium whitespace-nowrap"
+                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium whitespace-nowrap"
                                         >
                                             <Lock size={16} /> Change Password
                                         </motion.button>
