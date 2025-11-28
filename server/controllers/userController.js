@@ -15,7 +15,7 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
     try {
-        const { bio, interests, socialLinks, avatar } = req.body;
+        const { name, bio, interests, socialLinks, avatar } = req.body;
         let avatarUrl = avatar;
 
         if (req.file) {
@@ -34,6 +34,7 @@ const updateProfile = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
+        user.name = name || user.name;
         user.bio = bio || user.bio;
         user.interests = typeof interests === 'string' ? JSON.parse(interests) : (interests || user.interests);
         user.socialLinks = typeof socialLinks === 'string' ? JSON.parse(socialLinks) : (socialLinks || user.socialLinks);

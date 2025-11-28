@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import OtpVerify from './pages/OtpVerify';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import useAuthStore from './store/authStore';
 import Dashboard from './pages/Dashboard';
 import CreateEvent from './pages/CreateEvent';
@@ -20,6 +22,7 @@ import { useEffect } from 'react';
 
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import RedirectAuthenticatedUser from './components/RedirectAuthenticatedUser';
 import GuestSessionLimit from './components/GuestSessionLimit';
 
 import Home from './pages/Home';
@@ -27,19 +30,25 @@ import Home from './pages/Home';
 function App() {
   const { checkAuth, isCheckingAuth } = useAuthStore();
   const [authChecked, setAuthChecked] = React.useState(false);
+  const [showLoader, setShowLoader] = React.useState(false);
 
   useEffect(() => {
     const performAuthCheck = async () => {
+      // Only show loader if auth check takes longer than 100ms
+      const loaderTimeout = setTimeout(() => setShowLoader(true), 100);
+
       try {
         await checkAuth();
       } finally {
+        clearTimeout(loaderTimeout);
         setAuthChecked(true);
+        setShowLoader(false);
       }
     };
     performAuthCheck();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!authChecked || isCheckingAuth) return <LoadingSpinner fullScreen />;
+  if (!authChecked && showLoader) return <LoadingSpinner fullScreen />;
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
@@ -65,9 +74,19 @@ function App() {
       <div className="pt-16">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={
+            <RedirectAuthenticatedUser>
+              <Login />
+            </RedirectAuthenticatedUser>
+          } />
+          <Route path="/register" element={
+            <RedirectAuthenticatedUser>
+              <Register />
+            </RedirectAuthenticatedUser>
+          } />
           <Route path="/verify-otp" element={<OtpVerify />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />

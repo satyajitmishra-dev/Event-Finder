@@ -13,6 +13,10 @@ const sendEmail = async (to, subject, text, html) => {
             html,
         };
 
+        if (process.env.NODE_ENV !== "production") {
+            console.log("[DEV] Email content:", text || html);
+        }
+
         await sgMail.send(msg);
         console.log(`Email sent to ${to}`);
     } catch (error) {

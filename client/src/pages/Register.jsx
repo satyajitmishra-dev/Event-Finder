@@ -97,7 +97,7 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 relative overflow-hidden my-8">
+        <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 relative overflow-hidden">
 
             {/* Background Blobs */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-blob" />
@@ -105,20 +105,39 @@ const Register = () => {
             <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-blob animation-delay-4000" />
 
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="glass-card p-8 rounded-2xl w-full max-w-2xl relative z-10"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: "circOut" }}
+                className="glass-card p-8 rounded-3xl w-full max-w-2xl relative z-10 border border-white/10 shadow-2xl backdrop-blur-xl bg-gray-900/40"
             >
                 <div className="text-center mb-8">
-                    <h2 className="text-4xl font-bold mb-2 text-gradient">Join EventFinder</h2>
-                    <p className="text-gray-400">Create your account to discover amazing events</p>
+                    <motion.h2
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.1 }}
+                        className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400"
+                    >
+                        Join EventFinder
+                    </motion.h2>
+                    <motion.p
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-gray-400"
+                    >
+                        Create your account to discover amazing events
+                    </motion.p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
                     {/* Name */}
-                    <div className="md:col-span-2">
+                    <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="md:col-span-2"
+                    >
                         <Input
                             icon={User}
                             type="text"
@@ -128,10 +147,14 @@ const Register = () => {
                             onChange={handleChange}
                         />
                         {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-                    </div>
+                    </motion.div>
 
                     {/* Email */}
-                    <div>
+                    <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.4 }}
+                    >
                         <Input
                             icon={Mail}
                             type="email"
@@ -141,10 +164,14 @@ const Register = () => {
                             onChange={handleChange}
                         />
                         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                    </div>
+                    </motion.div>
 
                     {/* Password */}
-                    <div>
+                    <motion.div
+                        initial={{ x: 20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.4 }}
+                    >
                         <Input
                             icon={Lock}
                             type="password"
@@ -154,10 +181,15 @@ const Register = () => {
                             onChange={handleChange}
                         />
                         {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-                    </div>
+                    </motion.div>
 
                     {/* College */}
-                    <div className="md:col-span-2">
+                    <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="md:col-span-2"
+                    >
                         <Input
                             icon={School}
                             type="text"
@@ -167,11 +199,15 @@ const Register = () => {
                             onChange={handleChange}
                         />
                         {errors.college && <p className="text-red-500 text-sm">{errors.college}</p>}
-                    </div>
+                    </motion.div>
 
                     {/* Stream */}
-                    {/* Stream */}
-                    <div className="relative group">
+                    <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                        className="relative group"
+                    >
                         <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-400 transition-colors pointer-events-none z-10" size={20} />
 
                         <select
@@ -214,10 +250,15 @@ const Register = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Year of Studying */}
-                    <div className="relative group">
+                    <motion.div
+                        initial={{ x: 20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                        className="relative group"
+                    >
                         <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-400 transition-colors pointer-events-none z-10" size={20} />
 
                         <select
@@ -242,10 +283,15 @@ const Register = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Location */}
-                    <div className="md:col-span-2">
+                    <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.7 }}
+                        className="md:col-span-2"
+                    >
                         <Input
                             icon={MapPin}
                             type="text"
@@ -255,16 +301,21 @@ const Register = () => {
                             onChange={handleChange}
                         />
                         {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
-                    </div>
+                    </motion.div>
 
                     {/* Button */}
-                    <div className="md:col-span-2 mt-2">
+                    <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.8 }}
+                        className="md:col-span-2 mt-2"
+                    >
                         <Button
                             type="submit"
                             variant="primary"
                             size="lg"
                             isLoading={isLoading}
-                            className="w-full"
+                            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-500/25"
                         >
                             {!isLoading && (
                                 <>
@@ -272,16 +323,21 @@ const Register = () => {
                                 </>
                             )}
                         </Button>
-                    </div>
+                    </motion.div>
 
                 </form>
 
-                <p className="mt-6 text-center text-gray-400">
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                    className="mt-6 text-center text-gray-400"
+                >
                     Already have an account?{' '}
-                    <Link to="/login" className="text-purple-400 hover:text-purple-300 font-semibold hover:underline transition-colors">
+                    <Link to="/login" className="text-purple-400 hover:text-pink-400 font-semibold hover:underline transition-colors">
                         Login
                     </Link>
-                </p>
+                </motion.p>
             </motion.div>
         </div>
     );

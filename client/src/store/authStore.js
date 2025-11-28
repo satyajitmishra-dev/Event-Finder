@@ -84,6 +84,27 @@ const useAuthStore = create((set) => ({
         }
     },
 
+    changePassword: async (passwordData) => {
+        try {
+            const res = await api.post('/auth/change-password', passwordData);
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    resendOtp: async (data) => {
+        set({ isLoading: true, error: null });
+        try {
+            const res = await api.post('/auth/resend-otp', data);
+            set({ isLoading: false });
+            return res.data;
+        } catch (err) {
+            set({ isLoading: false, error: err.response?.data?.message || 'Failed to resend OTP' });
+            throw err;
+        }
+    },
+
     logout: async () => {
         await api.post('/auth/logout');
         set({ user: null, isAuthenticated: false });

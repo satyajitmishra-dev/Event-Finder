@@ -171,3 +171,119 @@ exports.logout = (req, res) => {
     res.clearCookie('refreshToken');
     res.json({ message: 'Logged out' });
 };
+
+// Change Password
+exports.changePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+        const userId = req.user.userId;
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        const isMatch = await bcrypt.compare(currentPassword, user.passwordHash);
+        if (!isMatch) return res.status(400).json({ message: 'Incorrect current password' });
+
+        const passwordHash = await bcrypt.hash(newPassword, 10);
+        user.passwordHash = passwordHash;
+        await user.save();
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Forgot Password
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        const otp = generateOTP();
+        const hashedOtp = await bcrypt.hash(otp, 10);
+
+        await OtpVerification.deleteMany({ userId: user._id, type: 'reset' });
+
+        await new OtpVerification({
+            userId: user._id,
+            otp: hashedOtp,
+            type: 'reset',
+            expiresAt: Date.now() + 10 * 60 * 1000, // 10 mins
+        }).save();
+
+        // DEV: Log OTP to file
+        if (process.env.NODE_ENV !== 'production') {
+            require('fs').writeFileSync('otp.txt', otp);
+        }
+
+        const emailHtml = generateOtpEmail(otp, user.name);
+        await sendEmail(email, 'Reset Password OTP - EventFinder', `Your Reset Password OTP is ${otp}`, emailHtml);
+
+        res.status(200).json({ message: 'OTP sent to email', userId: user._id });
+    } catch (error) {
+        // DEV: Log error to file
+        require('fs').writeFileSync('server_error.log', error.message + '\n' + error.stack);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+    try {
+        const { userId, otp, newPassword } = req.body;
+
+        const record = await OtpVerification.findOne({ userId, type: 'reset' });
+        if (!record) return res.status(400).json({ message: 'OTP not found or expired' });
+
+        const isValid = await bcrypt.compare(otp, record.otp);
+        if (!isValid) return res.status(400).json({ message: 'Invalid OTP' });
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        const passwordHash = await bcrypt.hash(newPassword, 10);
+        user.passwordHash = passwordHash;
+        await user.save();
+
+        await OtpVerification.deleteOne({ _id: record._id });
+
+        res.status(200).json({ message: 'Password reset successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Resend OTP
+exports.resendOtp = async (req, res) => {
+    try {
+        const { userId, type } = req.body;
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        // Generate new OTP
+        const otp = generateOTP();
+        const hashedOtp = await bcrypt.hash(otp, 10);
+
+        // Delete existing OTPs of this type
+        await OtpVerification.deleteMany({ userId: user._id, type });
+
+        // Save new OTP
+        await new OtpVerification({
+            userId: user._id,
+            otp: hashedOtp,
+            type,
+            expiresAt: Date.now() + 5 * 60 * 1000, // 5 mins
+        }).save();
+
+        // Send email
+        const emailHtml = generateOtpEmail(otp, user.name);
+        await sendEmail(user.email, 'Resend OTP - EventFinder', `Your new OTP is ${otp}`, emailHtml);
+
+        res.status(200).json({ message: 'OTP resent successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

@@ -61,7 +61,7 @@ const LoadingSpinner = ({ size = 'md', fullScreen = false }) => {
 
     if (fullScreen) {
         return (
-            <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center z-50 font-mono">
+            <div className="fixed inset-0 bg-gray-950 flex flex-col items-center justify-center z-50 font-mono">
                 <div className="relative">
                     {spinner}
                     {/* Scanning Line Effect */}
