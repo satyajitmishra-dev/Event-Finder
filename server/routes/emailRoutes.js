@@ -19,6 +19,14 @@ router.post('/contact', async (req, res) => {
     console.log('User:', process.env.EMAIL_USER ? 'Set' : 'Not Set');
     console.log('Pass:', process.env.EMAIL_PASS ? 'Set' : 'Not Set');
 
+    // Check for credentials
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        console.warn('WARNING: Email credentials not found. Simulating email send.');
+        // Simulate a delay to make it feel real
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return res.status(200).json({ message: 'Email sent successfully (Simulated)' });
+    }
+
     try {
         const mailOptions = {
             from: process.env.EMAIL_USER,

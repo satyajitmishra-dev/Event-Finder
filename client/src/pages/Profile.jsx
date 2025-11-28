@@ -194,15 +194,15 @@ const Profile = () => {
                         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                     </div>
 
-                    <div className="px-8 pb-10">
-                        <div className="flex flex-col md:flex-row gap-8 -mt-20 relative">
+                    <div className="px-4 sm:px-8 pb-10">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-8 -mt-16 md:-mt-20 relative flex-wrap">
                             {/* Avatar Section */}
                             <div className="flex-shrink-0 flex flex-col items-center md:items-start">
                                 <motion.div
                                     className="relative group"
                                     whileHover={isEditing ? { scale: 1.02 } : {}}
                                 >
-                                    <div className="w-40 h-40 rounded-full border-4 border-gray-900 bg-gray-800 overflow-hidden shadow-2xl relative z-10">
+                                    <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gray-900 bg-gray-800 overflow-hidden shadow-2xl relative z-10">
                                         {previewUrl ? (
                                             <img src={previewUrl} alt={user.name} className="w-full h-full object-cover" />
                                         ) : (
@@ -245,23 +245,23 @@ const Profile = () => {
                             </div>
 
                             {/* Header Info */}
-                            <div className="flex-1 pt-20 md:pt-24 text-center md:text-left space-y-2">
+                            <div className="flex-1 pt-4 md:pt-24 text-center md:text-left space-y-2 min-w-[200px]">
                                 {isEditing ? (
                                     <input
                                         type="text"
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="text-3xl md:text-4xl font-bold text-white bg-transparent border-b border-gray-700 focus:border-purple-500 outline-none w-full md:w-auto text-center md:text-left"
+                                        className="text-2xl md:text-4xl font-bold text-white bg-transparent border-b border-gray-700 focus:border-purple-500 outline-none w-full md:w-auto text-center md:text-left"
                                         placeholder="Your Name"
                                     />
                                 ) : (
-                                    <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{user.name}</h1>
+                                    <h1 className="text-2xl md:text-4xl font-bold text-white tracking-tight">{user.name}</h1>
                                 )}
                                 <div className="flex flex-wrap justify-center md:justify-start gap-4 text-gray-400 text-sm">
                                     <div className="flex items-center gap-1.5">
                                         <Mail size={16} className="text-purple-400" />
-                                        {user.email}
+                                        <span className="break-all">{user.email}</span>
                                     </div>
                                     <div className="flex items-center gap-1.5">
                                         <MapPin size={16} className="text-pink-400" />
@@ -271,14 +271,14 @@ const Profile = () => {
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex-shrink-0 pt-0 md:pt-24 flex flex-col sm:flex-row gap-3 items-center md:items-start justify-center md:justify-end">
+                            <div className="flex-shrink-0 pt-4 md:pt-24 flex flex-col sm:flex-row gap-3 items-center md:items-start justify-center md:justify-end w-full md:w-auto ml-auto">
                                 {!isEditing ? (
                                     <>
                                         <motion.button
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => setIsEditing(true)}
-                                            className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium"
+                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium whitespace-nowrap"
                                         >
                                             <Edit2 size={16} /> Edit Profile
                                         </motion.button>
@@ -286,19 +286,19 @@ const Profile = () => {
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => setShowPasswordModal(true)}
-                                            className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium"
+                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium whitespace-nowrap"
                                         >
                                             <Lock size={16} /> Change Password
                                         </motion.button>
                                     </>
                                 ) : (
-                                    <div className="flex gap-3">
+                                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                                         <motion.button
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={handleSubmit}
                                             disabled={isLoading}
-                                            className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-5 py-2.5 rounded-full transition-all shadow-lg shadow-purple-500/25 text-sm font-medium disabled:opacity-70 disabled:cursor-not-allowed"
+                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-5 py-2.5 rounded-full transition-all shadow-lg shadow-purple-500/25 text-sm font-medium disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
                                         >
                                             {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
                                             Save Changes
@@ -308,7 +308,7 @@ const Profile = () => {
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => setIsEditing(false)}
                                             disabled={isLoading}
-                                            className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium"
+                                            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-full transition-all border border-gray-700 text-sm font-medium whitespace-nowrap"
                                         >
                                             <X size={16} /> Cancel
                                         </motion.button>

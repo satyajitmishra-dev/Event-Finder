@@ -26,6 +26,7 @@ import RedirectAuthenticatedUser from './components/RedirectAuthenticatedUser';
 import GuestSessionLimit from './components/GuestSessionLimit';
 
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
 function App() {
   const { checkAuth, isCheckingAuth } = useAuthStore();
@@ -112,7 +113,7 @@ function App() {
               <Profile />
             </ProtectedRoute>
           } />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>

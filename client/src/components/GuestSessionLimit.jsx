@@ -29,7 +29,7 @@ const GuestSessionLimit = () => {
         // Start 30-second timer for unauthenticated users on non-auth pages
         timerRef.current = setTimeout(() => {
             setShowModal(true);
-        }, 30000); // 30 seconds
+        }, 40000);
 
         // Cleanup on unmount
         return () => {

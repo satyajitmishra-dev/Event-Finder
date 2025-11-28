@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useEventStore from '../store/eventStore';
 import EventCard from '../components/EventCard';
 import EventSkeleton from '../components/ui/EventSkeleton';
-import { Search, Plus, Globe, MapPin, Sparkles, Filter } from 'lucide-react';
+import { Search, Plus, Globe, MapPin, Sparkles, Filter, Ghost } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -78,8 +78,8 @@ const Dashboard = () => {
                             <button
                                 onClick={() => setActiveTab('local')}
                                 className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${activeTab === 'local'
-                                        ? 'bg-purple-600 text-white shadow-lg'
-                                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                    ? 'bg-purple-600 text-white shadow-lg'
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 <MapPin size={18} /> Local
@@ -87,8 +87,8 @@ const Dashboard = () => {
                             <button
                                 onClick={() => setActiveTab('global')}
                                 className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${activeTab === 'global'
-                                        ? 'bg-blue-600 text-white shadow-lg'
-                                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                    ? 'bg-blue-600 text-white shadow-lg'
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 <Globe size={18} /> Global
@@ -142,7 +142,7 @@ const Dashboard = () => {
                                 className="col-span-full flex flex-col items-center justify-center py-20 text-center"
                             >
                                 <div className="w-24 h-24 bg-gray-800/50 rounded-full flex items-center justify-center mb-6">
-                                    <Sparkles size={40} className="text-gray-600" />
+                                    <Ghost size={40} className="text-gray-600" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-gray-300 mb-2">No events found</h3>
                                 <p className="text-gray-500 max-w-md">
