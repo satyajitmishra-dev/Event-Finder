@@ -1,193 +1,372 @@
-# **EventFinder ✨🔍**
+# EventFinder ✨🔍
 
 **Discover events, meet people & explore experiences — powered by AI.**
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/PRs-Welcome-blue?style=for-the-badge" />
   <img src="https://img.shields.io/github/stars/satyajitmishra-dev/Event-Finder?style=for-the-badge&color=yellow" />
   <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" />
 </p>
 
-EventFinder is a sleek, AI-assisted platform designed to help you browse events, explore experiences, and get personalized recommendations—instantly.
+<p align="center">
+  <a href="https://eventfinder-2pko.onrender.com/" target="_blank">🚀 Live Demo</a> •
+  <a href="https://github.com/satyajitmishra-dev/Event-Finder">📦 Repository</a> •
+  <a href="#features">✨ Features</a> •
+  <a href="#tech-stack">🛠️ Tech Stack</a> •
+  <a href="#installation">⚙️ Installation</a>
+</p>
 
 ---
 
-## 🚀 **Features**
+## 🎯 Problem Statement
 
-* 🔎 **Smart event discovery** — search by category, location, date
-* 🤖 **AI Assistant** — personalized event recommendations & chat
-* 📍 **Local + global data aggregation**
-* 🖥️ **Interactive UI** with responsive cards & filters
-* 🧩 **Modular architecture** for developers
-* 📱 **Mobile-friendly, clean layout**
-* 🔐 **Secure environment config** for deployments
+Discovering relevant events—whether academic conferences, tech meetups, cultural festivals, or networking opportunities—is surprisingly difficult. Students and young professionals face critical challenges:
 
----
+- **Information Fragmentation**: Events scattered across college boards, social media, and multiple platforms
+- **Lack of Personalization**: Generic listings don't consider your interests, location, or academic background
+- **Discovery Friction**: Manual searching across dozens of sources wastes valuable time
+- **Limited Context**: Most platforms don't explain why events matter to you
 
-## 📸 **Screenshots / Demo**
-
-- 💬 Clean, modern UI with interactive dashboard and listings
-<img width="1920" height="1080" alt="Screenshot (96)" src="https://github.com/user-attachments/assets/b8e6ec41-41a8-4ca1-85da-d44459646662" />
-- 🤖 AI Assistant for personalized recommendations and Q&A  
-<img width="1920" height="1080" alt="Screenshot (80)" src="https://github.com/user-attachments/assets/5d85ed4c-9e51-4b6a-a961-91dd72496fa4" />
-- 📍 Local & global event aggregation  
-<img width="1920" height="1080" alt="Screenshot (81)" src="https://github.com/user-attachments/assets/572be6e3-0034-4db5-ab3b-f060e784567b" />
-
+**EventFinder solves this** by creating a unified, AI-powered platform that brings personalized events to you, not the other way around.
 
 ---
 
-## 🛠️ **Tech Stack**
+## 🤖 Why AI Agents?
 
-**Frontend:** React
-**Styling:** Tailwind CSS, lucide react
-**Backend:** Node.js / Express / Serverless Functions
-**AI:** GEMINI API
-**Database (Optional):** MongoDB
-**Deployment:** Render
+Traditional event platforms use basic filtering (date, category, location). **AI agents are the perfect solution** because they provide:
+
+### 🎯 Intelligent Personalization
+- Analyzes your college, stream, location, and interests to build a comprehensive preference model
+- Understands context beyond keywords—knows a CS student needs hackathons, not just "tech events"
+
+### 💬 Conversational Discovery
+- Natural language queries: *"Find tech meetups in Kolkata next weekend"*
+- Iterative refinement through back-and-forth conversations
+
+### 🔮 Proactive Intelligence
+- Suggests events you might not have searched for but align with your interests
+- Identifies emerging event categories based on your behavior
+
+### 🌐 Multi-Source Aggregation
+- Seamlessly combines local user-created events with global Ticketmaster data
+- Intelligently blends results based on relevance
+
+### 📈 Learning & Adaptation
+- Tracks which events you view, join, or skip to refine recommendations
+- Learns from feedback to improve future suggestions
+
+**Powered by Google Gemini 2.5 Flash** for fast responses, rich context understanding, and cost-efficient high-volume queries.
 
 ---
 
-# ⚙️ **Local Development**
+## ✨ Features
 
-## 📦 **Prerequisites**
+### 🔐 **Authentication & Security**
+- Email/password registration with OTP verification
+- JWT-based authentication (access + refresh tokens)
+- Secure password reset flow
+- Guest session with inactivity prompts
 
-* Node.js 18+
-* npm / yarn
-* Git
-* (Optional) Docker
-* (Optional) Database engine (Postgres/MongoDB)
+### 📅 **Event Discovery**
+- **Dual-Tab Interface**: Local (user-created) + Global (Ticketmaster API)
+- Real-time search and filtering
+- Category-based organization
+- Join/leave events functionality
+- Event creation with comprehensive details
+
+### 🤖 **AI Chat Assistant**
+- Context-aware conversations using user profile
+- Personalized event recommendations
+- Voice input support (speech-to-text)
+- Natural language understanding
+
+### 👤 **User Profile Management**
+- Avatar upload (Cloudinary) or random generation
+- Bio, interests, and social links
+- College, stream, and location details
+- Change password functionality
+
+### 🎨 **Premium UI/UX**
+- Glassmorphism design with gradient backgrounds
+- Smooth animations (Framer Motion)
+- Mouse-following spotlight effects
+- Skeleton loaders for better perceived performance
+- Fully responsive (mobile-first)
+
+### 📧 **Communication**
+- Contact form with email delivery
+- Premium HTML email templates
+- OTP delivery system
 
 ---
 
-## 🚀 **Setup (Step-by-Step)**
+## 🏗️ Architecture
 
-### 1️⃣ Clone the repository
+```
+┌─────────────────────────────────────────────────────────┐
+│              Frontend (React 19 + Vite)                 │
+│  • Tailwind CSS 4 • Framer Motion • Zustand            │
+└─────────────────────────────────────────────────────────┘
+                        ↕ REST API
+┌─────────────────────────────────────────────────────────┐
+│           Backend (Node.js + Express 5)                 │
+│  • JWT Auth • Bcrypt • Multer • CORS                   │
+└─────────────────────────────────────────────────────────┘
+                        ↕
+┌─────────────────────────────────────────────────────────┐
+│         Database (MongoDB + Mongoose)                   │
+│  • User Collection • Event Collection • OTP Collection  │
+└─────────────────────────────────────────────────────────┘
+                        ↕
+┌─────────────────────────────────────────────────────────┐
+│              External Services                          │
+│  • Gemini AI • Ticketmaster • Cloudinary • SendGrid    │
+└─────────────────────────────────────────────────────────┘
+```
 
+---
+
+## 🛠️ Tech Stack
+
+### **Frontend**
+- **React 19** - Latest version with improved performance
+- **Vite 7** - Lightning-fast build tool and dev server
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **Framer Motion 12** - Smooth animations and transitions
+- **Zustand 5** - Lightweight state management (1KB)
+- **React Router DOM 7** - Client-side routing
+- **Axios 1.13** - HTTP client with interceptors
+- **React Toastify 11** - Beautiful toast notifications
+- **Lucide React** - Icon library
+
+### **Backend**
+- **Node.js 18+** - JavaScript runtime
+- **Express 5** - Web framework
+- **MongoDB + Mongoose 9** - Database and ODM
+- **JWT (jsonwebtoken 9)** - Token-based authentication
+- **Bcrypt 6** - Password hashing
+- **Nodemailer 7 + SendGrid** - Email service
+- **Cloudinary 2.8** - Image hosting and optimization
+- **Multer 2** - File upload handling
+- **Google Generative AI 0.24** - Gemini 2.5 Flash integration
+
+### **External APIs**
+- **Google Gemini 2.5 Flash** - AI chat and recommendations
+- **Ticketmaster API** - Global event data
+- **Cloudinary** - Image storage and CDN
+- **SendGrid** - Email delivery
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Landing Page
+![Landing Page](https://github.com/user-attachments/assets/b8e6ec41-41a8-4ca1-85da-d44459646662)
+*Modern hero section with rotating text and spotlight effects*
+
+### 🤖 AI Assistant
+![AI Assistant](https://github.com/user-attachments/assets/5d85ed4c-9e51-4b6a-a961-91dd72496fa4)
+*Conversational AI for personalized event recommendations*
+
+### 🌍 Event Discovery
+![Event Discovery](https://github.com/user-attachments/assets/572be6e3-0034-4db5-ab3b-f060e784567b)
+*Dual-tab interface for local and global events*
+
+---
+
+## ⚙️ Installation
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- MongoDB (local or Atlas)
+- Git
+
+### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/satyajitmishra-dev/Event-Finder.git
 cd Event-Finder
 ```
 
-### 2️⃣ Install dependencies
+### 2️⃣ Install Dependencies
 
+**Backend:**
 ```bash
+cd server
 npm install
-# or
-yarn install
 ```
 
-### 3️⃣ Environment variables
-
-Create a file named **`.env.local`**:
-
-```
-NEXT_PUBLIC_API_URL=https://api.example.com
-EVENT_API_KEY=your_event_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
-DATABASE_URL=postgres://user:pass@localhost:5432/eventfinder
-PORT=3000
-```
-
-✔️ `EVENT_API_KEY` — Eventbrite / Meetup / custom APIs
-✔️ `GEMINI_API_KEY` — AI assistant integration
-✔️ `DATABASE_URL` — required only if using a DB
-
----
-
-## ▶️ **Running the App**
-
-### Development mode
-
+**Frontend:**
 ```bash
+cd ../client
+npm install
+```
+
+### 3️⃣ Environment Variables
+
+**Backend (`server/.env`):**
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_ACCESS_SECRET=your_access_secret
+JWT_REFRESH_SECRET=your_refresh_secret
+GEMINI_API_KEY=your_gemini_api_key
+EVENT_API_KEY=your_ticketmaster_api_key
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_cloudinary_key
+CLOUDINARY_API_SECRET=your_cloudinary_secret
+SENDGRID_API_KEY=your_sendgrid_key
+EMAIL_FROM=your_email@example.com
+NODE_ENV=development
+```
+
+**Frontend (`client/.env`):**
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+### 4️⃣ Run the Application
+
+**Backend (Terminal 1):**
+```bash
+cd server
 npm run dev
 ```
 
-### Production build
-
+**Frontend (Terminal 2):**
 ```bash
-npm run build
-npm start
+cd client
+npm run dev
 ```
 
-Your app runs at: **[http://localhost:3000/](http://localhost:3000/)**
+**Access the app at:** `http://localhost:5173`
 
 ---
 
-# 🧪 **Tests & Quality**
+## 🚀 Deployment
 
-Run tests:
+### Frontend (Vercel)
+1. Push code to GitHub
+2. Import repository in Vercel
+3. Set environment variables
+4. Deploy automatically
 
-```bash
-npm run test
-```
+### Backend (Render)
+1. Create new Web Service
+2. Connect GitHub repository
+3. Set build command: `npm install`
+4. Set start command: `npm start`
+5. Add environment variables
+6. Deploy
 
-Lint code:
-
-```bash
-npm run lint
-```
-
-Format code:
-
-```bash
-npm run format
-```
-
----
-
-# 🐳 **Docker Support**
-
-### Build Docker image
-
-```bash
-docker build -t eventfinder .
-```
-
-### Run container
-
-```bash
-docker run -p 3000:3000 --env-file .env.local eventfinder
-```
+### Database (MongoDB Atlas)
+1. Create cluster
+2. Add database user
+3. Whitelist IP addresses
+4. Copy connection string to `MONGO_URI`
 
 ---
 
-# 💡 **Troubleshooting**
+## 📚 API Documentation
 
-| Issue                     | Solution                            |
-| ------------------------- | ----------------------------------- |
-| Port already in use       | Change `PORT` in `.env.local`       |
-| Env variables not loading | Restart dev server                  |
-| AI not responding         | Check `OPENAI_API_KEY`              |
-| Event API errors          | Verify API key & API quota          |
-| Database not connecting   | Confirm `DATABASE_URL` & migrations |
+### Authentication Endpoints
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/verify-register-otp` - Verify registration OTP
+- `POST /api/auth/login` - Login user
+- `POST /api/auth/verify-login-otp` - Verify login OTP
+- `POST /api/auth/refresh` - Refresh access token
+- `POST /api/auth/logout` - Logout user
+- `POST /api/auth/forgot-password` - Request password reset
+- `POST /api/auth/reset-password` - Reset password
+- `POST /api/auth/change-password` - Change password
+
+### Event Endpoints
+- `GET /api/events` - Get all local events (with filters)
+- `GET /api/events/global` - Get global events from Ticketmaster
+- `GET /api/events/my` - Get user's created events
+- `GET /api/events/:id` - Get single event
+- `POST /api/events` - Create new event
+- `POST /api/events/:id/join` - Join event
+- `POST /api/events/:id/leave` - Leave event
+- `DELETE /api/events/:id` - Delete event
+
+### AI Endpoints
+- `POST /api/ai/chat` - Send message to AI
+- `GET /api/ai/recommendations` - Get personalized recommendations
+
+### User Endpoints
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update profile
+
+### Email Endpoints
+- `POST /api/email/contact` - Send contact form email
 
 ---
 
-# 🎯 **Usage Tips**
+## 🗺️ Roadmap
 
-Try asking the AI Assistant:
+### 🔥 High Priority
+- [ ] Enhanced AI with persistent chat history
+- [ ] Social features (follow users, comments, ratings)
+- [ ] Real-time notifications (WebSocket + Push)
+- [ ] Mobile app (React Native + PWA)
 
-> "Find tech meetups in Kolkata next weekend"
-> "Suggest concerts happening in Bangalore today"
-> "What events are trending in India this month?"
+### 📊 Medium Priority
+- [ ] Event editing and cancellation
+- [ ] Ticketing system (Stripe/Razorpay)
+- [ ] Calendar integration (Google, Apple, Outlook)
+- [ ] Advanced search (Elasticsearch, map view)
+- [ ] Performance optimizations (Redis, CDN)
+
+### 💡 Low Priority
+- [ ] Gamification (badges, points, leaderboards)
+- [ ] Business features (analytics, premium listings)
+- [ ] Testing suite (Jest, Playwright)
+- [ ] Accessibility (WCAG compliance, i18n)
 
 ---
 
-# 🤝 **Contributing**
+## 🤝 Contributing
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=for-the-badge" />
-</p>
+Contributions are welcome! Here's how you can help:
 
-1. Fork the repo
-2. Create a feature branch
-3. Commit your changes
-4. Submit a pull request
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. **Commit your changes**
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+4. **Push to the branch**
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+5. **Open a Pull Request**
+
+### Development Guidelines
+- Follow existing code style
+- Write meaningful commit messages
+- Test your changes thoroughly
+- Update documentation as needed
 
 ---
 
-# 📄 **License**
+## 🐛 Known Issues
+
+- Email delivery may be slow on free Render tier
+- Ticketmaster API has rate limits (5 requests/second)
+- First load on Render may take 30-60 seconds (cold start)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+```
 MIT License
 
 Copyright (c) 2025 Satyajit Mishra
@@ -209,16 +388,41 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
 
 ---
 
-# ✉️ **Author**
+## ✉️ Author
 
 **Satyajit Mishra**
-🔗 Linkedin: [[https://www.linkedin.com/in/satyajitmishra1/](https://www.linkedin.com/in/satyajitmishra1/)]
+
+- 🔗 LinkedIn: [linkedin.com/in/satyajitmishra1](https://www.linkedin.com/in/satyajitmishra1/)
+- 🐙 GitHub: [github.com/satyajitmishra-dev](https://github.com/satyajitmishra-dev)
+- 📧 Email: Contact via [EventFinder](https://eventfinder-2pko.onrender.com/)
 
 ---
 
-# 🎉 **Thank You for Checking Out EventFinder!**
+## 🙏 Acknowledgments
+
+- **Google Gemini** for AI capabilities
+- **Ticketmaster** for global event data
+- **Cloudinary** for image hosting
+- **SendGrid** for email delivery
+- **MongoDB Atlas** for database hosting
+- **Vercel & Render** for deployment platforms
+
+---
+
+## 🎉 Thank You for Checking Out EventFinder!
 
 *Discover more. Meet more. Experience more.* 🌍✨
+
+<p align="center">
+  <a href="https://eventfinder-2pko.onrender.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Try%20It%20Live-EventFinder-purple?style=for-the-badge&logo=rocket" />
+  </a>
+</p>
+
+---
+
+**⭐ Star this repo if you find it helpful!**
